@@ -42,12 +42,20 @@ module.exports.loop = function () {
             roleWallRepairer.run(creep);
         }
     }
+    
+    
+    var linkFrom = Game.spawns.Home.room.lookForAt('structure', 5, 3)[0];
 
+    var linkTo = Game.spawns.Home.pos.findInRange(FIND_MY_STRUCTURES, 2, 
+        {filter: {structureType: STRUCTURE_LINK}})[0];
+
+        linkFrom.transferEnergy(linkTo);
+ 
 
     // setup some minimum numbers for different roles
-    var minimumNumberOfHarvesters = 6;
-    var minimumNumberOfUpgraders = 3;
-    var minimumNumberOfBuilders = 3;
+    var minimumNumberOfHarvesters = 3;
+    var minimumNumberOfUpgraders = 1;
+    var minimumNumberOfBuilders = 4;
     var minimumNumberOfRepairers = 1;
     var minimumNumberOfWallRepairers = 1;
 
@@ -62,7 +70,7 @@ module.exports.loop = function () {
 
     var energy = Game.spawns.Home.room.energyCapacityAvailable;
     var name = undefined;
-
+/*
     // if not enough harvesters
     if (numberOfHarvesters < minimumNumberOfHarvesters) {
         // try to spawn one
@@ -104,5 +112,5 @@ module.exports.loop = function () {
     // name > 0 would not work since string > 0 returns false
     if (!(name < 0)) {
         console.log("Spawned new creep: " + name);
-    }
+    } */
 };
