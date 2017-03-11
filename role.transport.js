@@ -41,19 +41,11 @@ module.exports = {
                 50);
                 
             if (energy.length) {
-                console.log('found ' + energy[0].energy + ' energy at ', energy[0].pos);
-                creep.say('Transport!')
+                //console.log('found ' + energy[0].energy + ' energy at ', energy[0].pos);
+                //creep.say('Transport!')
                 creep.moveTo(energy[0]);
                 creep.pickup(energy[0]);
                 }
-            
-            /* find closest source
-            var source = creep.pos.findClosestByPath(FIND_SOURCES);
-            // try to harvest energy, if the source is not in range
-            if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                // move towards the source
-                creep.moveTo(source);
-            } */
         }
     }
 };
