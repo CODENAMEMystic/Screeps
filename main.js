@@ -5,6 +5,8 @@ var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 var roleWallRepairer = require('role.wallRepairer');
+var roleMiner = require('role.miner');
+var roleTransport = require('role.transport');
 
 module.exports.loop = function () {
     // check for memory entries of died creeps by iterating over Memory.creeps
@@ -37,80 +39,79 @@ module.exports.loop = function () {
         else if (creep.memory.role == 'repairer') {
             roleRepairer.run(creep);
         }
+        //if creep is miner, call repairer script
+        else if (creep.memory.role == 'miner') {
+            roleMiner.run(creep);
+        }
         // if creep is wallRepairer, call wallRepairer script
         else if (creep.memory.role == 'wallRepairer') {
             roleWallRepairer.run(creep);
         }
+        else if (creep.memory.role == 'transport') {
+            roleTransport.run(creep);
+        }
     }
     
-    
+/*    //WHEN LINK IS BUILT
     var linkFrom = Game.spawns.Home.room.lookForAt('structure', 5, 3)[0];
-
     var linkTo = Game.spawns.Home.pos.findInRange(FIND_MY_STRUCTURES, 2, 
         {filter: {structureType: STRUCTURE_LINK}})[0];
-
         linkFrom.transferEnergy(linkTo);
- 
+ */
 
     // setup some minimum numbers for different roles
-    var minimumNumberOfHarvesters = 3;
-    var minimumNumberOfUpgraders = 1;
-    var minimumNumberOfBuilders = 4;
-    var minimumNumberOfRepairers = 1;
+    var minimumNumberOfUpgraders = 4;       //Good
+    var minimumNumberOfBuilders = 4;        //Good
+    var minimumNumberOfRepairers = 2;       //Good
     var minimumNumberOfWallRepairers = 1;
+    var minimumNumberOfMiner = 3;           //Good
+    var minimumNumberOfTransport = 4;       //Good
 
     // count the number of creeps alive for each role
     // _.sum will count the number of properties in Game.creeps filtered by the
     //  arrow function, which checks for the creep being a harvester
-    var numberOfHarvesters = _.sum(Game.creeps, (c) => c.memory.role == 'harvester');
     var numberOfUpgraders = _.sum(Game.creeps, (c) => c.memory.role == 'upgrader');
     var numberOfBuilders = _.sum(Game.creeps, (c) => c.memory.role == 'builder');
     var numberOfRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'repairer');
     var numberOfWallRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer');
+    var numberOfMiners = _.sum(Game.creeps, (c) => c.memory.role == 'miner');
+    var numberOfTransport = _.sum(Game.creeps, (c) => c.memory.role == 'transport');
 
     var energy = Game.spawns.Home.room.energyCapacityAvailable;
     var name = undefined;
-/*
-    // if not enough harvesters
-    if (numberOfHarvesters < minimumNumberOfHarvesters) {
-        // try to spawn one
-        name = Game.spawns.Home.createCustomCreep(energy, 'harvester');
-
-        // if spawning failed and we have no harvesters left
+    
+    
+    // if not enough MINERS
+    if (numberOfMiners < minimumNumberOfMiner) {
+        // try to spawn miner
+        name = Game.spawns.Home.createCustomCreepM(energy, 'miner');
+        // if spawning failed and we have no miners left
         if (name == ERR_NOT_ENOUGH_ENERGY && numberOfHarvesters == 0) {
-            // spawn one with what is available
-            name = Game.spawns.Home.createCustomCreep(
-                Game.spawns.Home.room.energyAvailable, 'harvester');
+            //spawn one with what is available
+            name = Game.spawns.Home.createCustomCreepM(
+                Game.spawns.Home.room.energyAvailable, 'miner');
         }
     }
-    // if not enough upgraders
-    else if (numberOfUpgraders < minimumNumberOfUpgraders) {
+    // if not enough TRANSPORTS
+    if (numberOfTransport < minimumNumberOfTransport) {
         // try to spawn one
-        name = Game.spawns.Home.createCustomCreep(energy, 'upgrader');
+        name = Game.spawns.Home.createCustomCreepT(energy, 'transport');
+        // if spawning failed and we have no transports left
+        if (name == ERR_NOT_ENOUGH_ENERGY && numberOfHarvesters == 0) {
+            name = Game.spawns.Home.createCustomCreepT(
+                Game.spawns.Home.room.energyAvailable, 'transport')
+        }
     }
-    // if not enough repairers
-    else if (numberOfRepairers < minimumNumberOfRepairers) {
-        // try to spawn one
-        name = Game.spawns.Home.createCustomCreep(energy, 'repairer');
+    // if not enough UPGRADERS
+    if (numberOfUpgraders < minimumNumberOfUpgraders) {
+        name = Game.spawns.Home.createCustomCreepU(energy, 'upgrader');
     }
-    // if not enough builders
-    else if (numberOfBuilders < minimumNumberOfBuilders) {
-        // try to spawn one
-        name = Game.spawns.Home.createCustomCreep(energy, 'builder');
+    // if not enough BUILDERS
+    if (numberOfBuilders < minimumNumberOfBuilders) {
+        name = Game.spawns.Home.createCustomCreepU(energy, 'builder');
     }
-    // if not enough wallRepairers
-    else if (numberOfWallRepairers < minimumNumberOfWallRepairers) {
-        // try to spawn one
-        name = Game.spawns.Home.createCustomCreep(energy, 'wallRepairer');
+    // if not enough REPAIRERS
+    if (numberOfRepairers < minimumNumberOfRepairers) {
+        name = Game.spawns.Home.createCustomCreepU(energy, 'repairer');
     }
-    else {
-        // else try to spawn a builder
-        name = Game.spawns.Home.createCustomCreep(energy, 'builder');
-    }
-
-    // print name to console if spawning was a success
-    // name > 0 would not work since string > 0 returns false
-    if (!(name < 0)) {
-        console.log("Spawned new creep: " + name);
-    } */
 };
