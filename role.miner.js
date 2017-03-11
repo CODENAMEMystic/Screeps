@@ -18,24 +18,6 @@ module.exports = {
             var moving = creep.pos.x-1
             creep.moveTo(moving)
             creep.drop(RESOURCE_ENERGY,50);
-            /*var structure = creep.pos.findClosestByPath(FIND_MY_STRUCTURES, {
-                // the second argument for findClosestByPath is an object which takes
-                // a property called filter which can be a function
-                // we use the arrow operator to define it
-                filter: (s) => (s.structureType == STRUCTURE_SPAWN
-                             || s.structureType == STRUCTURE_EXTENSION
-                             || s.structureType == STRUCTURE_TOWER)
-                             && s.energy < s.energyCapacity
-            }); */
-/*
-            // if we found one
-            if (structure != undefined) {
-                // try to transfer energy, if it is not in range
-                if (creep.transfer(structure, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
-                    // move towards it
-                    creep.moveTo(structure);
-                }
-            } */
         }
         // if creep is supposed to harvest energy from source
         else {
