@@ -1,3 +1,4 @@
+//NOTE -- THIS HAS NO PURPOSE ANY MORE -- !!!PURPOSE REPLACED WITH COOPERATION OF MINER AND TRANSPORT!!! --
 module.exports = {
     // a function to run the logic for this role
     run: function(creep) {
