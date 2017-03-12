@@ -100,30 +100,30 @@ module.exports.loop = function () {
         name = Game.spawns.Home.createCustomCreepT(energy, 'transport');
     }
     // if not enough DEFENDERS
-    else if (numberOfDefender < minimumNumberOfDefender) {
+    if (numberOfDefender < minimumNumberOfDefender) {
         name = Game.spawns.Home.createCustomCreepD(energy, 'defender');
 
     } 
     // if not enough UPGRADERS
-    else if (numberOfUpgraders < minimumNumberOfUpgraders) {
+    if (numberOfUpgraders < minimumNumberOfUpgraders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'upgrader');
     }
     // if not enough BUILDERS
-    else if (numberOfBuilders < minimumNumberOfBuilders) {
+    if (numberOfBuilders < minimumNumberOfBuilders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'builder');
     }
     // if not enough REPAIRERS
-    else if (numberOfRepairers < minimumNumberOfRepairers) {
+    if (numberOfRepairers < minimumNumberOfRepairers) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'repairer');
     } 
     //if there are no MINERS or TRANSPORT spawn RECOVERY creep (uses different body parts)
-    else if (numberOfMiners || numberOfTransport == 0 && numberOfrecover < 3) {
+    if (numberOfrecover < 3 && numberOfMiners || numberOfTransport == 0 ) {
         //spawn one with what is available
         name = Game.spawns.Home.createCustomCreepU(
             Game.spawns.Home.room.energyAvailable, 'recover');
     }
     // if there are enough MINERS and TRANSPORTS, then suicide
-    else if (numberOfMiners && numberOfTransport >= 3) {
+    else if (numberOfMiners && numberOfTransport >= 4) {
         name = creep.suicide('recover')
     }
     
