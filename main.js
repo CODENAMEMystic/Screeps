@@ -7,6 +7,7 @@ var roleWallRepairer = require('role.wallRepairer');
 var roleMiner = require('role.miner');
 var roleTransport = require('role.transport');
 var roleDefender = require('role.defender');
+var roleDefender = require('role.recover');
 
 module.exports.loop = function () {
     // check for memory entries of died creeps by iterating over Memory.creeps
@@ -50,6 +51,9 @@ module.exports.loop = function () {
         else if (creep.memory.role == 'defender') {
             roleDefender.run(creep);
         }
+        else if (creep.memory.role == 'recover') {
+            roleDefender.run(creep);
+        }
     }
     
 /*    //WHEN LINK IS BUILT
@@ -66,7 +70,7 @@ module.exports.loop = function () {
     var minimumNumberOfWallRepairers = 1;
     var minimumNumberOfMiner = 3;           //Good
     var minimumNumberOfTransport = 4;       //Good
-    var minimumNumberOfDefender = 5;        //NEED TO WORK ON
+    var minimumNumberOfDefender = 5;        //Good
 
     // count the number of creeps alive for each role
     // _.sum will count the number of properties in Game.creeps filtered by the
@@ -78,23 +82,13 @@ module.exports.loop = function () {
     var numberOfMiners = _.sum(Game.creeps, (c) => c.memory.role == 'miner');
     var numberOfTransport = _.sum(Game.creeps, (c) => c.memory.role == 'transport');
     var numberOfDefender = _.sum(Game.creeps, (c) => c.memory.role == 'defender');
+    var numberOfrecover = _.sum(Game.creeps, (c) => c.memory.role == 'recover');
 
     var energy = Game.spawns.Home.room.energyCapacityAvailable;
     var name = undefined;
     
    
    
-   
-   
-   
-   
-    //if there are no MINERS or TRANSPORT spawn RECOVERY creep (uses different body parts)
-    if (numberOfMiners || numberOfTransport == 0) {
-        //spawn one with what is available
-        name = Game.spawns.Home.createCustomCreepU(
-            Game.spawns.Home.room.energyAvailable, 'miner');
-    }
-            
     // if not enough MINERS
     if (numberOfMiners < minimumNumberOfMiner) {
         // try to spawn miner
@@ -106,22 +100,31 @@ module.exports.loop = function () {
         name = Game.spawns.Home.createCustomCreepT(energy, 'transport');
     }
     // if not enough DEFENDERS
-    if (numberOfDefender < minimumNumberOfDefender) {
+    else if (numberOfDefender < minimumNumberOfDefender) {
         name = Game.spawns.Home.createCustomCreepD(energy, 'defender');
 
     } 
     // if not enough UPGRADERS
-    if (numberOfUpgraders < minimumNumberOfUpgraders) {
+    else if (numberOfUpgraders < minimumNumberOfUpgraders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'upgrader');
     }
     // if not enough BUILDERS
-    if (numberOfBuilders < minimumNumberOfBuilders) {
+    else if (numberOfBuilders < minimumNumberOfBuilders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'builder');
     }
     // if not enough REPAIRERS
-    if (numberOfRepairers < minimumNumberOfRepairers) {
+    else if (numberOfRepairers < minimumNumberOfRepairers) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'repairer');
     } 
-    
+    //if there are no MINERS or TRANSPORT spawn RECOVERY creep (uses different body parts)
+    else if (numberOfMiners || numberOfTransport == 0 && numberOfrecover < 3) {
+        //spawn one with what is available
+        name = Game.spawns.Home.createCustomCreepU(
+            Game.spawns.Home.room.energyAvailable, 'recover');
+    }
+    // if there are enough MINERS and TRANSPORTS, then suicide
+    else if (numberOfMiners && numberOfTransport >= 3) {
+        name = creep.suicide('recover')
+    }
     
 };

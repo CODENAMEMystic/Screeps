@@ -4,6 +4,9 @@ module.exports = function() {
         function(energy, roleName) {
             // create a balanced body as big as possible with the given energy
             var numberOfParts = Math.floor(energy / 200);
+            if (numberOfParts >= 50) {
+                numberOfParts = 50
+            }
             var body = [];
             for (let i = 0; i < numberOfParts; i++) {
                 body.push(WORK);
@@ -18,6 +21,9 @@ module.exports = function() {
         function(energy, roleName) {
             // create a balanced body as big as possible with the given energy
             var numberOfParts = Math.floor(energy / 100);
+            if (numberOfParts >= 50) {
+                numberOfParts = 50
+            }
             var body = [];
             for (let i = 0; i < numberOfParts; i++) {
                 body.push(CARRY);
@@ -32,6 +38,9 @@ module.exports = function() {
         function(energy, roleName) {
             // create a balanced body as big as possible with the given energy
             var numberOfParts = Math.floor(energy / 250);
+            if (numberOfParts >= 48) {
+                numberOfParts = 48
+            }
             var body = [];
             for (let i = 0; i < numberOfParts; i+=2) {
                 body.push(WORK);
