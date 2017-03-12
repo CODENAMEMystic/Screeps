@@ -11,6 +11,7 @@ module.exports = {
             // if one is found
             if (enemy != undefined) {
                 // try to kill, if the enemy is not in range
+                creep.say('WARNING! LEAVE IMMEDIATELY!')
                 if (creep.attack(enemy) == ERR_NOT_IN_RANGE) {
                     // move towards the enemy
                     creep.moveTo(enemy);

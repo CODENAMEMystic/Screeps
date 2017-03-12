@@ -64,13 +64,13 @@ module.exports.loop = function () {
  */
 
     // setup some minimum numbers for different roles
-    var minimumNumberOfUpgraders = 2;       //Good
-    var minimumNumberOfBuilders = 3;        //Good
+    var minimumNumberOfUpgraders = 5;       //Good
+    var minimumNumberOfBuilders = 1;        //Good
     var minimumNumberOfRepairers = 2;       //Good
     var minimumNumberOfWallRepairers = 1;
-    var minimumNumberOfMiner = 3;           //Good
-    var minimumNumberOfTransport = 4;       //Good
-    var minimumNumberOfDefender = 5;        //Good
+    var minimumNumberOfMiner = 4;           //Good
+    var minimumNumberOfTransport = 6;       //Good
+    var minimumNumberOfDefender = 2;        //Good
 
     // count the number of creeps alive for each role
     // _.sum will count the number of properties in Game.creeps filtered by the
@@ -99,32 +99,38 @@ module.exports.loop = function () {
         // try to spawn one
         name = Game.spawns.Home.createCustomCreepT(energy, 'transport');
     }
-    // if not enough DEFENDERS
-    if (numberOfDefender < minimumNumberOfDefender) {
-        name = Game.spawns.Home.createCustomCreepD(energy, 'defender');
-
-    } 
+    
     // if not enough UPGRADERS
     if (numberOfUpgraders < minimumNumberOfUpgraders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'upgrader');
-    }
-    // if not enough BUILDERS
-    if (numberOfBuilders < minimumNumberOfBuilders) {
-        name = Game.spawns.Home.createCustomCreepU(energy, 'builder');
     }
     // if not enough REPAIRERS
     if (numberOfRepairers < minimumNumberOfRepairers) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'repairer');
     } 
+    
+    
+    /*
+    // if not enough DEFENDERS
+    if (numberOfDefender < minimumNumberOfDefender) {
+        name = Game.spawns.Home.createCustomCreepD(energy, 'defender');
+
+    } 
+    
+    // if not enough BUILDERS
+    if (numberOfBuilders < minimumNumberOfBuilders) {
+        name = Game.spawns.Home.createCustomCreepU(energy, 'builder');
+    }
+    
     //if there are no MINERS or TRANSPORT spawn RECOVERY creep (uses different body parts)
     if (numberOfrecover < 3 && numberOfMiners || numberOfTransport == 0 ) {
         //spawn one with what is available
         name = Game.spawns.Home.createCustomCreepU(
             Game.spawns.Home.room.energyAvailable, 'recover');
-    }
+    } 
     // if there are enough MINERS and TRANSPORTS, then suicide
     else if (numberOfMiners && numberOfTransport >= 4) {
         name = creep.suicide('recover')
-    }
+    } */
     
 };

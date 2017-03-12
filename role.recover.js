@@ -45,15 +45,16 @@ module.exports = {
             var dropenergy = creep.pos.findClosestByPath(FIND_DROPPED_ENERGY)
             var source = creep.pos.findClosestByPath(FIND_SOURCES);
             // try to harvest energy, if the source is not in range
+            
+            /* if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
+                // move towards the source
+                creep.moveTo(source);
+            } */
             if (dropenergy != null) {
                 if (creep.pickup(dropenergy) == ERR_NOT_IN_RANGE){
                     creep.moveTo(dropenergy);
                 }
-            }
-            else if (creep.harvest(source) == ERR_NOT_IN_RANGE) {
-                // move towards the source
-                creep.moveTo(source);
-            }
+            } 
         }
     }
 };

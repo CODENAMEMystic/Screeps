@@ -24,7 +24,9 @@ module.exports = {
                              || s.structureType == STRUCTURE_TOWER)
                              && s.energy < s.energyCapacity
             });
-
+            
+            
+            
             // if we found one
             if (structure != undefined) {
                 // try to transfer energy, if it is not in range
@@ -32,7 +34,7 @@ module.exports = {
                     // move towards it
                     creep.moveTo(structure);
                 }
-            }
+            } 
         }
         // if creep is supposed to harvest energy from source
         else {
