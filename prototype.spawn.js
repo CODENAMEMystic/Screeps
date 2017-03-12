@@ -45,4 +45,21 @@ module.exports = function() {
             // create creep with the created body and the given role
             return this.createCreep(body, undefined, { role: roleName, working: false });
         };
+            StructureSpawn.prototype.createCustomCreepD =
+        function(energy, roleName) {
+            // create a balanced body as big as possible with the given energy
+            var numberOfParts = Math.floor(energy / 190);
+            var body = [];
+            for (let i = 0; i < numberOfParts; i+=2) { //80
+                body.push(ATTACK);
+            }
+            for (let i = 0; i < numberOfParts; i+=2) { //10
+                body.push(TOUGH);
+            }
+            for (let i = 0; i < numberOfParts; i++) { //100
+                body.push(MOVE);
+            }
+            // create creep with the created body and the given role
+            return this.createCreep(body, undefined, { role: roleName, working: true });
+        };
 };
