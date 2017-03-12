@@ -1,12 +1,12 @@
 // import modules
 require('prototype.spawn')();
-var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
 var roleRepairer = require('role.repairer');
 var roleWallRepairer = require('role.wallRepairer');
 var roleMiner = require('role.miner');
 var roleTransport = require('role.transport');
+var roleDefender = require('role.defender');
 
 module.exports.loop = function () {
     // check for memory entries of died creeps by iterating over Memory.creeps
@@ -23,12 +23,9 @@ module.exports.loop = function () {
         // get the creep object
         var creep = Game.creeps[name];
 
-        // if creep is harvester, call harvester script
-        if (creep.memory.role == 'harvester') {
-            roleHarvester.run(creep);
-        }
+    
         // if creep is upgrader, call upgrader script
-        else if (creep.memory.role == 'upgrader') {
+        if (creep.memory.role == 'upgrader') {
             roleUpgrader.run(creep);
         }
         // if creep is builder, call builder script
@@ -50,6 +47,9 @@ module.exports.loop = function () {
         else if (creep.memory.role == 'transport') {
             roleTransport.run(creep);
         }
+        else if (creep.memory.role == 'defender') {
+            roleDefender.run(creep);
+        }
     }
     
 /*    //WHEN LINK IS BUILT
@@ -60,12 +60,13 @@ module.exports.loop = function () {
  */
 
     // setup some minimum numbers for different roles
-    var minimumNumberOfUpgraders = 4;       //Good
-    var minimumNumberOfBuilders = 4;        //Good
+    var minimumNumberOfUpgraders = 2;       //Good
+    var minimumNumberOfBuilders = 3;        //Good
     var minimumNumberOfRepairers = 2;       //Good
     var minimumNumberOfWallRepairers = 1;
     var minimumNumberOfMiner = 3;           //Good
-    var minimumNumberOfTransport = 4;       //Good
+    var minimumNumberOfTransport = 3;       //Good
+    var minimumNumberOfDefender = 1;        //NEED TO WORK ON
 
     // count the number of creeps alive for each role
     // _.sum will count the number of properties in Game.creeps filtered by the
@@ -76,6 +77,7 @@ module.exports.loop = function () {
     var numberOfWallRepairers = _.sum(Game.creeps, (c) => c.memory.role == 'wallRepairer');
     var numberOfMiners = _.sum(Game.creeps, (c) => c.memory.role == 'miner');
     var numberOfTransport = _.sum(Game.creeps, (c) => c.memory.role == 'transport');
+    var numberOfDefender = _.sum(Game.creeps, (c) => c.memory.role == 'defender');
 
     var energy = Game.spawns.Home.room.energyCapacityAvailable;
     var name = undefined;
@@ -86,7 +88,7 @@ module.exports.loop = function () {
         // try to spawn miner
         name = Game.spawns.Home.createCustomCreepM(energy, 'miner');
         // if spawning failed and we have no miners left
-        if (name == ERR_NOT_ENOUGH_ENERGY && numberOfHarvesters == 0) {
+        if (name == ERR_NOT_ENOUGH_ENERGY && numberOfMiners == 0) {
             //spawn one with what is available
             name = Game.spawns.Home.createCustomCreepM(
                 Game.spawns.Home.room.energyAvailable, 'miner');
@@ -97,7 +99,7 @@ module.exports.loop = function () {
         // try to spawn one
         name = Game.spawns.Home.createCustomCreepT(energy, 'transport');
         // if spawning failed and we have no transports left
-        if (name == ERR_NOT_ENOUGH_ENERGY && numberOfHarvesters == 0) {
+        if (name == ERR_NOT_ENOUGH_ENERGY && numberOfTransport == 0) {
             name = Game.spawns.Home.createCustomCreepT(
                 Game.spawns.Home.room.energyAvailable, 'transport')
         }
@@ -113,5 +115,10 @@ module.exports.loop = function () {
     // if not enough REPAIRERS
     if (numberOfRepairers < minimumNumberOfRepairers) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'repairer');
-    }
+    } 
+    
+    /*
+    if (numberOfDefender < minimumNumberOfDefender) {
+        name = Game.spawn.Home.createCustomCreepZAP(energy, 'defender');
+    }  */
 };
