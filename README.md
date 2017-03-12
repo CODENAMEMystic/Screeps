@@ -3,18 +3,19 @@
 - Screeps.com
 
 ##Current Goals 
-- Convert all harvesters into some extent of miner or transport
-- Fix role balance
+- Proper defensive creeps for different types (ranged + melee)
+- Create offensive creeps
+- More efficient transport creeps
 
 ##Recent Changes
-- Added Transport role!
-- Added Miner role!
+- Various adjustments
+- Created Defender role!
+- Removed Harvester role
 
-##Version: 0.1.2
+##Version: 0.2.0
 - main.js
 - prototype.spawn.js
 - role.builder.js
-- role.harvester.js
 - role.miner.js
 - role.repairer.js
 - role.transport.js
