@@ -6,6 +6,8 @@
 - Proper defensive creeps for different types (ranged + melee)
 - Create offensive creeps
 - More efficient transport creeps
+- Have transport creeps transfer TO containers when possible
+- Have other creeps transfer energy FROM containers when possibel
 
 ##Recent Changes
 - Various adjustments
