@@ -3,6 +3,10 @@
 ###Changes:
 - Removed function that spawns MINERS, TRANSPORTS, and DEFENDERS if there are none left
 - Added function to check if MINER or TRANSPORT is == 0 and spawns a RECOVERY creep
+- Modified RECOVERY role spawning qualifications and a suicide function if MINERS and TRANSPORTS equal or exceeds 4
+
+###Known Bugs:
+- When creating a creep, if potential body parts from energy exceeds 50 then the creep will not spawn.
 
 ##Version: 0.2.0 [3/12/17]
 ###Goals:
