@@ -11,25 +11,21 @@
 - Clean up code to make it more memory + CPU efficient
 - Stable prototype spawner
 
-###All [v0.2.0+] patch Changes:
-- Removed function that spawns MINERS, TRANSPORTS, and DEFENDERS if there are none left
-- Added function to check if MINER or TRANSPORT is == 0 and spawns a RECOVERY creep
-- Modified RECOVERY role spawning qualifications and a suicide function if MINERS and TRANSPORTS equal or exceeds 4
-- Disabled prototype spawning for select roles
-- Adjusted prototype spawning for basic survival and advancement: MINER, TRANSPORT, UPGRADER, REPAIRIER
+###All [v0.3.0+] patch Changes:
+
 
 ###Known Bugs:
-- When creating a creep, if potential body parts from energy exceeds 50 then the creep will not spawn.
-- Prototype spawning doesnt work properly, avoids given commands in regards to how to spawn creeps
 
 
 
 ##Stable Release Changes:
-- Various adjustments
-- Created Defender role!
-- Removed Harvester role
+- Added Long Distance Harvester!
+- Added Tower code!
+- Stable prototype spawner
+- More efficient transport creeps
+- Adjusted all code for stable self managing creeps
 
-##Version: 0.2.0
+##Version: 0.3.0
 - main.js
 - prototype.spawn.js
 - role.builder.js

@@ -8,6 +8,9 @@ var roleMiner = require('role.miner');
 var roleTransport = require('role.transport');
 var roleDefender = require('role.defender');
 var roleDefender = require('role.recover');
+var roleLDHarvester = require('role.longDistanceHarvester')
+
+var HOME = 'E5S18';
 
 module.exports.loop = function () {
     // check for memory entries of died creeps by iterating over Memory.creeps
@@ -24,6 +27,11 @@ module.exports.loop = function () {
         // get the creep object
         var creep = Game.creeps[name];
 
+    
+    
+    
+    
+    
     
         // if creep is upgrader, call upgrader script
         if (creep.memory.role == 'upgrader') {
@@ -54,6 +62,20 @@ module.exports.loop = function () {
         else if (creep.memory.role == 'recover') {
             roleDefender.run(creep);
         }
+        else if (creep.memory.role == 'longDistanceHarvester') {
+            roleLDHarvester.run(creep)
+        }
+    }  
+    
+//Tower Pew Pew Code
+    var towers = Game.rooms.E5S18.find(FIND_STRUCTURES, {
+        filter: (s) => s.structureType == STRUCTURE_TOWER
+    });
+    for (let tower of towers) {
+        var target = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
+        if (target != undefined) {
+            tower.attack(target);
+        }
     }
     
 /*    //WHEN LINK IS BUILT
@@ -64,13 +86,14 @@ module.exports.loop = function () {
  */
 
     // setup some minimum numbers for different roles
-    var minimumNumberOfUpgraders = 5;       //Good
-    var minimumNumberOfBuilders = 1;        //Good
-    var minimumNumberOfRepairers = 2;       //Good
+    var minimumNumberOfUpgraders = 2;       //Good
+    var minimumNumberOfBuilders = 4;        //Good
+    var minimumNumberOfRepairers = 1;       //Good
     var minimumNumberOfWallRepairers = 1;
-    var minimumNumberOfMiner = 4;           //Good
-    var minimumNumberOfTransport = 6;       //Good
+    var minimumNumberOfMiner = 3;           //Good
+    var minimumNumberOfTransport = 3;       //Good
     var minimumNumberOfDefender = 2;        //Good
+    var minimumNumberOfLDHarvester = 1;
 
     // count the number of creeps alive for each role
     // _.sum will count the number of properties in Game.creeps filtered by the
@@ -83,15 +106,16 @@ module.exports.loop = function () {
     var numberOfTransport = _.sum(Game.creeps, (c) => c.memory.role == 'transport');
     var numberOfDefender = _.sum(Game.creeps, (c) => c.memory.role == 'defender');
     var numberOfrecover = _.sum(Game.creeps, (c) => c.memory.role == 'recover');
+    var numberOfLDHarvester = _.sum(Game.creeps, (c) => c.memory.role == 'longDistanceHarvester');
 
-    var energy = Game.spawns.Home.room.energyCapacityAvailable;
+    var energy = Game.spawns.Home.room.energyAvailable;
     var name = undefined;
     
    
    
     // if not enough MINERS
     if (numberOfMiners < minimumNumberOfMiner) {
-        // try to spawn miner
+
         name = Game.spawns.Home.createCustomCreepM(energy, 'miner');
     }
     // if not enough TRANSPORTS
@@ -102,26 +126,26 @@ module.exports.loop = function () {
     
     // if not enough UPGRADERS
     if (numberOfUpgraders < minimumNumberOfUpgraders) {
+        
         name = Game.spawns.Home.createCustomCreepU(energy, 'upgrader');
     }
+    
     // if not enough REPAIRERS
     if (numberOfRepairers < minimumNumberOfRepairers) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'repairer');
     } 
-    
-    
     /*
     // if not enough DEFENDERS
     if (numberOfDefender < minimumNumberOfDefender) {
         name = Game.spawns.Home.createCustomCreepD(energy, 'defender');
 
     } 
-    
+     */
     // if not enough BUILDERS
     if (numberOfBuilders < minimumNumberOfBuilders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'builder');
     }
-    
+    /*
     //if there are no MINERS or TRANSPORT spawn RECOVERY creep (uses different body parts)
     if (numberOfrecover < 3 && numberOfMiners || numberOfTransport == 0 ) {
         //spawn one with what is available
@@ -131,6 +155,6 @@ module.exports.loop = function () {
     // if there are enough MINERS and TRANSPORTS, then suicide
     else if (numberOfMiners && numberOfTransport >= 4) {
         name = creep.suicide('recover')
-    } */
+    } */ 
     
 };
