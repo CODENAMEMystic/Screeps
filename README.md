@@ -34,3 +34,4 @@
 - role.transport.js
 - role.upgrader.js
 - role.wallRepairer.js
+- role.longDistanceHarvester.js
