@@ -1,7 +1,6 @@
 
 
 # Stable Update: v0.3.0
-## Version: 0.3.0 [3/17/17]
 ### Goals:
 - Proper defensive creeps for different types (ranged + melee)
 - Create offensive creeps
@@ -11,12 +10,26 @@
 - Create ant like creeps that work together
 - Minimize repetitive code
 
+
+## Version: 0.3.2 [3/17/17]
+### Changes:
+- Adjusted everything for self managing again
+
+## Version v0.3.1 [3/17/17]
+### Changes:
+- Fixed Main.js for prototype spawning
+
+
+## Version v0.3.0
 ### Changes:
 - Added Long Distance Harvester!
 - Added Tower code!
 - Stable prototype spawner
 - More efficient transport creeps
 - Adjusted all code for stable self managing creeps
+
+
+
 
 
 

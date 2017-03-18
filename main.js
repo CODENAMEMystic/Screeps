@@ -8,6 +8,7 @@ var roleMiner = require('role.miner');
 var roleTransport = require('role.transport');
 var roleDefender = require('role.defender');
 var roleRecover = require('role.recover');
+var roleAttacker = require('role.attacker');
 
 module.exports.loop = function () {
     // check for memory entries of died creeps by iterating over Memory.creeps
@@ -54,6 +55,9 @@ module.exports.loop = function () {
         else if (creep.memory.role == 'recover') {
             roleDefender.run(creep);
         }
+        else if (creep.memory.role == 'attacker') {
+            roleAttacker.run(creep);
+        }
     }
     
 /*    //WHEN LINK IS BUILT
@@ -64,13 +68,14 @@ module.exports.loop = function () {
  */
 
     // setup some minimum numbers for different roles
-    var minimumNumberOfUpgraders = 1;       //Good
-    var minimumNumberOfBuilders = 1;        //Good
-    var minimumNumberOfRepairers = 1;       //Good
-    var minimumNumberOfWallRepairers = 1;
+    var minimumNumberOfUpgraders = 0;       //Good
+    var minimumNumberOfBuilders = 2;        //Good
+    var minimumNumberOfRepairers = 0;       //Good
+    var minimumNumberOfWallRepairers = 0;
     var minimumNumberOfMiner = 3;           //Good
-    var minimumNumberOfTransport = 4;       //Good
-    var minimumNumberOfDefender = 2;        //Good
+    var minimumNumberOfTransport = 3;       //Good
+    var minimumNumberOfDefender = 0;        //Good
+   // var minimumNumberOfAttacker = 0;
 
     // count the number of creeps alive for each role
     // _.sum will count the number of properties in Game.creeps filtered by the
@@ -83,23 +88,24 @@ module.exports.loop = function () {
     var numberOfTransport = _.sum(Game.creeps, (c) => c.memory.role == 'transport');
     var numberOfDefender = _.sum(Game.creeps, (c) => c.memory.role == 'defender');
     var numberOfrecover = _.sum(Game.creeps, (c) => c.memory.role == 'recover');
+    var numberOfAttacker = _.sum(Game.creeps, (c) => c.memory.role == 'attacker');
 
     var energy = Game.spawns.Home.room.energyAvailable;
     var name = undefined;
     
-   
+            
    
     // if not enough MINERS
     if (numberOfMiners < minimumNumberOfMiner) {
         // try to spawn miner
         name = Game.spawns.Home.createCustomCreepM(energy, 'miner');
-    } 
+    }
     // if not enough TRANSPORTS
     if (numberOfTransport < minimumNumberOfTransport) {
         // try to spawn one
         name = Game.spawns.Home.createCustomCreepT(energy, 'transport');
     }
-    
+    /*
     // if not enough UPGRADERS
     if (numberOfUpgraders < minimumNumberOfUpgraders) {
         name = Game.spawns.Home.createCustomCreepU(energy, 'upgrader');
@@ -110,7 +116,7 @@ module.exports.loop = function () {
     } 
     
     
-    /*
+    /* 
     // if not enough DEFENDERS
     if (numberOfDefender < minimumNumberOfDefender) {
         name = Game.spawns.Home.createCustomCreepD(energy, 'defender');
