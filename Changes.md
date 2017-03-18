@@ -14,7 +14,7 @@
 ## Version: 0.3.2 [3/17/17]
 ### Changes:
 - Adjusted everything for self managing again
-- Added attacker role!
+- Added attacker role
 
 ## Version v0.3.1 [3/17/17]
 ### Changes:
