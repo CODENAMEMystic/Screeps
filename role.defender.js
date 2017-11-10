@@ -26,7 +26,7 @@ module.exports = {
         // TEMPORARY ELSE STATEMENT untill i properly manage it
         else {
             var energy = creep.pos.findInRange(
-                FIND_DROPPED_ENERGY,
+                FIND_DROPPED_RESOURCES,
                 50);
                 
             if (energy.length) {

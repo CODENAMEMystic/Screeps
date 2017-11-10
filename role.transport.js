@@ -24,7 +24,10 @@ module.exports = {
                              || s.structureType == STRUCTURE_TOWER)
                              && s.energy < s.energyCapacity
             });
-            
+            var container = creep.pos.findClosestByPath(FIND_STRUCTURES, {
+            filter: (s) => (s. structureType == STRUCTURE_CONTAINER)
+                            && s.energy < s.energyCapacity
+            });
             
             
             // if we found one
@@ -34,12 +37,21 @@ module.exports = {
                     // move towards it
                     creep.moveTo(structure);
                 }
-            } 
+                //else if (structure.energyAvailable == structure.energyCapacityAvailable)  {
+                /*if (creep.transfer(container, RESOURCE_ENERGY) == ERR_NOT_IN_RANGE) {
+                    creep.moveTo(container);
+                } */
+            }
+             
+            
+                        
+            
+                
         }
         // if creep is supposed to harvest energy from source
         else {
             var energy = creep.pos.findInRange(
-                FIND_DROPPED_ENERGY,
+                FIND_DROPPED_RESOURCES,
                 50);
                 
             if (energy.length) {
