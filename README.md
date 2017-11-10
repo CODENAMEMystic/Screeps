@@ -2,7 +2,12 @@
 - All code found here can be used freely for any means. This all was developed by me for the game Screeps
 - Screeps.com
 
-## Current Goals 
+## 2017 Update Goals:
+- Reorganize goals
+- Review current code
+
+
+## Past Goals 
 - Proper defensive creeps for different types (ranged + melee)
 - Create offensive creeps
 - More efficient transport creeps
