@@ -2,14 +2,17 @@
 - This repo will be archived due to inconsistent outcomes of code. For the newest and more successful screeps repo go to: [ScreepsV2](https://github.com/Tanner1638/ScreepsV2)
 
 
-
+___
+___
+___
+___
 # Screeps
 - All code found here can be used freely for any means. This all was developed by me for the game Screeps
 - Screeps.com
+___
+___
+___
 
-## 2017 Update Goals:
-- Reorganize goals
-- Review current code
 
 
 ## Past Goals 
@@ -45,3 +48,4 @@
 - role.upgrader.js
 - role.wallRepairer.js
 - role.longDistanceHarvester.js
+~~
