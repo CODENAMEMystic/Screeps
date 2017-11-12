@@ -1,5 +1,8 @@
 # NOTICE:
-- This repo will be archived due to inconsistent outcomes of code. For the newest and more successful screeps repo go to: 
+- This repo will be archived due to inconsistent outcomes of code. For the newest and more successful screeps repo go to: [ScreepsV2](https://github.com/Tanner1638/ScreepsV2)
+
+
+
 # Screeps
 - All code found here can be used freely for any means. This all was developed by me for the game Screeps
 - Screeps.com
