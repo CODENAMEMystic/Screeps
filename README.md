@@ -1,3 +1,5 @@
+# NOTICE:
+- This repo will be archived due to inconsistent outcomes of code. For the newest and more successful screeps repo go to: 
 # Screeps
 - All code found here can be used freely for any means. This all was developed by me for the game Screeps
 - Screeps.com
